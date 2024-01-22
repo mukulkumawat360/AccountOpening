@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
 import com.mkbk.AccountOpening.Repository.AccountRepository;
-import com.mkbk.AccountOpening.model.LoginCredentials;
+import com.mkbk.AccountOpening.configuration.MkbkDataManagement;
 import com.mkbk.AccountOpening.model.LoginUserMaker;
 import com.mkbk.AccountOpening.model.UserInfo;
 
@@ -16,6 +19,8 @@ public class AccountRepositoryImpl implements AccountRepository{
 	
 	private static List<UserInfo> userdata=new ArrayList<>();
 	
+	@Autowired
+	MkbkDataManagement dataofUser;
 	
 	private static List<LoginUserMaker> loginCredential=new ArrayList<>();
 	
@@ -40,9 +45,12 @@ public class AccountRepositoryImpl implements AccountRepository{
 	
 	
 	@Override
-	public List<LoginUserMaker> addLoginCredentais(LoginUserMaker lgnCred){
+	public List<LoginUserMaker> addLoginCredentais(LoginUserMaker lgnCred) throws JsonProcessingException{
 		lgnCred.setSrno(loginsrn++);
 		loginCredential.add(lgnCred);
+		
+		
+		dataofUser.UserDataSaver(lgnCred.getEmailId().toString(), new Gson().toJson(lgnCred),"NewUserdata.properties");
 		return loginCredential;
 	}
 

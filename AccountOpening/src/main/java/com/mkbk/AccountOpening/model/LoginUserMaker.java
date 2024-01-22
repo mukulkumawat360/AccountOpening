@@ -5,6 +5,11 @@ import java.util.Date;
 public class LoginUserMaker {
 	
 	
+	@Override
+	public String toString() {
+		return "LoginUserMaker [Srno=" + Srno + ", firstname=" + firstname + ", lastName=" + lastName + ", EmailId="
+				+ EmailId + ", date=" + date + ", password=" + password + "]";
+	}
 	private int Srno;
 	private String firstname;
 	private String lastName;
