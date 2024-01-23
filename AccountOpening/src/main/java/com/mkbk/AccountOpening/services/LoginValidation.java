@@ -1,16 +1,15 @@
 package com.mkbk.AccountOpening.services;
 
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.Gson;
 import com.mkbk.AccountOpening.Repository.AccountRepository;
+import com.mkbk.AccountOpening.configuration.MkbkDataManagement;
 import com.mkbk.AccountOpening.model.LoginCredentials;
-import com.mkbk.AccountOpening.model.LoginUserMaker;
 
 
 @Controller
@@ -19,15 +18,24 @@ public class LoginValidation {
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	
+	@Autowired
+	private MkbkDataManagement mkbkd;
+	
 	public String userLoginValidation(LoginCredentials loginData) {
 		
-		List<LoginUserMaker> loginUsersData=accountRepository.dataOfLoginCredentials();
+		List<LoginCredentials> loginUsersData=mkbkd.userValidator(loginData);//accountRepository.dataOfLoginCredentials();
+		
+		
 		
 /*		Stream<Boolean> result= loginUsersData.stream().filter(loginUsersDatavar -> {
 				return loginData.getUsername().toString().equalsIgnoreCase(loginUsersDatavar.getEmailId().toString()) && loginData.getPassword().toString().equals(loginUsersDatavar.getPassword().toString());
 				});*/
-		for( LoginUserMaker loginUsersData1 :  loginUsersData) {
-			if(loginData.getUsername().toString().equalsIgnoreCase(loginUsersData1.getEmailId().toString()) && loginData.getPassword().toString().equals(loginUsersData1.getPassword().toString())){
+		for( LoginCredentials loginUsersData1 :  loginUsersData) {
+			if(loginData.getUsername().toString().equalsIgnoreCase(loginUsersData1.getUsername().toString()) && loginData.getPassword().toString().equals(loginUsersData1.getPassword().toString())){
+				String str= new StringBuffer().append("Time is= ").append(new Date()).toString();
+				mkbkd.UserDataReader(loginData.getUsername().toString() ,"LoginActivity.properties");
+				mkbkd.UserDataSaver(loginData.getUsername().toString(),mkbkd._value+"***"+str ,"LoginActivity.properties");
 			return "Y"	;
 			}
 			

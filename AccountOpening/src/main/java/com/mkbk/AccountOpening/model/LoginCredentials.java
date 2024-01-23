@@ -2,7 +2,7 @@ package com.mkbk.AccountOpening.model;
 
 public class LoginCredentials {
 
-	private int sero;
+	private int sero=0;
 	private String username;
 	private String password;
 	

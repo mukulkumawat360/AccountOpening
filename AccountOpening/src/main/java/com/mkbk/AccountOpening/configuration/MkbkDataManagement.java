@@ -7,14 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.springframework.stereotype.Controller;
 
+import com.mkbk.AccountOpening.model.LoginCredentials;
+
 @Controller
 public class MkbkDataManagement {
 
-	
+	public String _key="";
+	public String _value="";
 	
 	public void UserDataSaver(String key , String data ,String FileName) {
 		
@@ -60,10 +65,13 @@ public class MkbkDataManagement {
 		System.out.println("sbr;::"+sbr);
 		try(InputStream ins=new FileInputStream(sbr.toString())){
 			p.load(ins);
-			 String dataOfuser=p.get(key).toString();
-			 System.out.println("dataOfuser;::"+dataOfuser);
+			this._key=key;
+			 System.out.println("dataOfuser;::"+_key);
+			 this._value=p.get(key).toString();
+			 
 			ins.close();
 			exists=true;
+
 
 		}catch(Exception e) {
 			System.out.println("there is no user ");
@@ -71,6 +79,20 @@ public class MkbkDataManagement {
 		
 		
 		return exists ;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<LoginCredentials> userValidator(LoginCredentials lgc){
+		List<LoginCredentials> userData= new ArrayList<>();
+		UserDataReader(lgc.getUsername().toString() ,"LoginCredential.properties");
+		System.out.println("key Is "+ _key);
+		System.out.println("value is  "+ _value);
+		if(_value=="") {
+			throw new NullPointerException("user Does not exists");
+		}
+		userData.add(new LoginCredentials(3,_key,_value));
+		return  userData;
 	}
 	
 	

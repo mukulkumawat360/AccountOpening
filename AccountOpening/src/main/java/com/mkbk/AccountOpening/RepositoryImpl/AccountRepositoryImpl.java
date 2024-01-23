@@ -46,11 +46,11 @@ public class AccountRepositoryImpl implements AccountRepository{
 	
 	@Override
 	public List<LoginUserMaker> addLoginCredentais(LoginUserMaker lgnCred) throws JsonProcessingException{
-		lgnCred.setSrno(loginsrn++);
-		loginCredential.add(lgnCred);
-		
-		
+
 		dataofUser.UserDataSaver(lgnCred.getEmailId().toString(), new Gson().toJson(lgnCred),"NewUserdata.properties");
+		
+		dataofUser.UserDataSaver(lgnCred.getEmailId().toString(),lgnCred.getPassword().toString(),"LoginCredential.properties");
+		
 		return loginCredential;
 	}
 
