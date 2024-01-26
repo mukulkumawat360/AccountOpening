@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import org.springframework.stereotype.Controller;
 
+import com.mkbk.AccountOpening.Exceptions.UserNotFoundException;
 import com.mkbk.AccountOpening.model.LoginCredentials;
 
 @Controller
@@ -89,7 +90,7 @@ public class MkbkDataManagement {
 		System.out.println("key Is "+ _key);
 		System.out.println("value is  "+ _value);
 		if(_value=="") {
-			throw new NullPointerException("user Does not exists");
+			throw new UserNotFoundException();
 		}
 		userData.add(new LoginCredentials(3,_key,_value));
 		return  userData;

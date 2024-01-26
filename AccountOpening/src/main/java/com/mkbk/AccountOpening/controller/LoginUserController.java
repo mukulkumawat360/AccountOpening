@@ -37,7 +37,7 @@ public class LoginUserController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> ValidatelogInCredentials(
 				@RequestBody LoginCredentials lgnCred) {
-		String result=loginValidation.userLoginValidation(lgnCred)=="Y"?"UserExists":"User not Exists ";
+		String result=loginValidation.userLoginValidation(lgnCred)=="Y"?"Y":"N";
 		return ResponseEntity.status(HttpStatus.CREATED).body(result);
 		}
 	
