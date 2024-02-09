@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mkbk.AccountOpening.Exceptions.UserAlreadyExists;
 import com.mkbk.AccountOpening.Repository.AccountRepository;
 import com.mkbk.AccountOpening.configuration.MkbkDataManagement;
 import com.mkbk.AccountOpening.model.LoginCredentials;
@@ -54,14 +55,15 @@ public class LoginUserController {
 			consumes=MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<LoginCredentials> createLogin(@RequestBody LoginUserMaker lum) throws JsonProcessingException {
+	public ResponseEntity<String> createLogin(@RequestBody LoginUserMaker lum) throws JsonProcessingException {
 		
-		if(userdata.UserDataReader(lum.getEmailId(),"NewUserdata.properties")) {
-			throw new NullPointerException("user Already Exists");
+		if(userdata.UserDataReader(lum.getEmail(),"NewUserdata.properties")) {
+			return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.CREATED).body("Exists");
 		}
+		System.out.println("LoginUserMaker::"+lum);
 		List<LoginUserMaker> response =accountRepository.addLoginCredentais(lum);
-		LoginCredentials returnCred= new LoginCredentials(lum.getSrno(),lum.getEmailId().toString(),lum.getPassword());
-		return ResponseEntity.status(HttpStatus.CREATED).body(returnCred);
+		LoginCredentials returnCred= new LoginCredentials(lum.getSrno(),lum.getEmail().toString(),lum.getPassword());
+		return  (ResponseEntity<String>) ResponseEntity.status(HttpStatus.CREATED).body("New");
 	}
 
 	private boolean isEmpty(String string) {

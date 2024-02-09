@@ -15,4 +15,11 @@ public class ExceptionHandlerClass {
 		
 		return new ResponseEntity<>("User Does Not Exists",HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(value=UserAlreadyExists.class)
+	public ResponseEntity<Object> userAlreadyfoundMethod(UserAlreadyExists unf){
+		
+		
+		return new ResponseEntity<>("Exists",HttpStatus.NOT_FOUND);
+	}
 }

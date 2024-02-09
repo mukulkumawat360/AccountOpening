@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mkbk.AccountOpening.configuration.DataConfigurationProp;
 
 @RestController
-@RequestMapping(value="/portal/")
+@RequestMapping
 public class HelloWorldController {
 
 	
@@ -16,9 +16,10 @@ public class HelloWorldController {
 	private DataConfigurationProp dataConfig;
 	
 	
-	@GetMapping(value="Hello")
+	@GetMapping(path="/")
 	public String CallHelloWorld() {
-		String sampleVal=dataConfig.getDemoValue();
-		return sampleVal==null || sampleVal==""?"Hello World":sampleVal;
+//		String sampleVal=dataConfig.getDemoValue();
+//		return sampleVal==null || sampleVal==""?"Hello World":sampleVal;
+		return "Hello Bro from docker";
 	}
 }

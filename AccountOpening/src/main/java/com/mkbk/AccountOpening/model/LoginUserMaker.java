@@ -5,24 +5,25 @@ import java.util.Date;
 public class LoginUserMaker {
 	
 	
-	@Override
-	public String toString() {
-		return "LoginUserMaker [Srno=" + Srno + ", firstname=" + firstname + ", lastName=" + lastName + ", EmailId="
-				+ EmailId + ", date=" + date + ", password=" + password + "]";
-	}
+
 	private int Srno;
-	private String firstname;
+	private String firstName;
 	private String lastName;
-	private String EmailId;
+	private String email;
 	private Date date=new Date();
 	private String password;
 	
-	public LoginUserMaker(int srno, String firstname, String lastName, String emailId, Date date, String password) {
+	@Override
+	public String toString() {
+		return "LoginUserMaker [Srno=" + Srno + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", date=" + date + ", password=" + password + "]";
+	}
+	public LoginUserMaker(int srno, String firstName, String lastName, String email, Date date, String password) {
 		super();
 		Srno = srno;
-		this.firstname = firstname;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		EmailId = emailId;
+		this.email = email;
 		this.date = date;
 		this.password = password;
 	}
@@ -32,11 +33,11 @@ public class LoginUserMaker {
 	public void setSrno(int srno) {
 		Srno = srno;
 	}
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	public String getLastName() {
 		return lastName;
@@ -44,11 +45,11 @@ public class LoginUserMaker {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getEmailId() {
-		return EmailId;
+	public String getEmail() {
+		return email;
 	}
-	public void setEmailId(String emailId) {
-		EmailId = emailId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public Date getDate() {
 		return date;
@@ -62,7 +63,6 @@ public class LoginUserMaker {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	
 
 }
